@@ -135,7 +135,7 @@ if __name__ == "__main__":
         #если ноут не заблокирован, но потока с камеры нет - создаем его
         elif not capture:
             capture = detector.init_cam()
-        #если человека нет перед камерой, лочим ее
+        #если человека нет перед камерой, лочим комьютер
         if not detector.detect() and is_expired(detector.get_modify_time()):
             os_helper.lock()
             print 'lock'
