@@ -15,7 +15,7 @@
 
 2. Делаем git clone:
 
-    git clone git://github.com/r00takaspin/paraniod.git
+    git clone git://github.com/r00takaspin/paranoid.git
 
 3. Запускаем скрипт:
 

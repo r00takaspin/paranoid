@@ -1,46 +1,12 @@
 #-*- coding: UTF-8 -*-
 import sys
-import os
 import time
-import commands
-import platform
 from camera import Camera
 from detector import Detector
 import logging
 import cv
-class OsHelperFactory():
 
-    @staticmethod
-    def get_os_helper():
-        if platform.system()=='Darwin':
-            return MacHelper()
-        else:
-            raise Exception("Sorry, your os not implemented yet")
-
-class BaseOsHelper(object):
-    @staticmethod
-    def lock(self):
-        """
-        блокируем компьютер
-        """
-        raise NotImplementedError()
-
-    @staticmethod
-    def is_logged(self):
-        """
-        проверяем, авторизован ли пользователь
-        """
-        raise NotImplementedError()
-
-class MacHelper(BaseOsHelper):
-    def lock(self):
-        os.system('/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend')
-
-    def is_logged(self):
-        result = commands.getstatusoutput("stat -f%Su /dev/console | grep root")
-        if result[1]=='root':
-            return False
-        return True
+from OsHelpers import OsHelper
 
 if __name__ == "__main__":
 
@@ -51,7 +17,7 @@ if __name__ == "__main__":
     camera.turn_on()
 
     detector = Detector(camera);
-    os_helper = OsHelperFactory.get_os_helper()
+    os_helper = OsHelper.OsHelper()
 
     if not camera.is_turned():
         print "Error opening capture device"
