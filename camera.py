@@ -10,13 +10,14 @@ class Camera(object):
     _camera = None
 
     def __init__(self):
-        self._storage = cv.CreateMemStorage(0)
+        pass;
 
 
     def turn_on(self):
         """
         включаем камеру
         """
+        self._storage = cv.CreateMemStorage(0)
         capture = cv.CaptureFromCAM(0)
         #выставляем размеры захватываемого изображения
         cv.SetCaptureProperty(capture,cv.CV_CAP_PROP_FRAME_WIDTH,640)

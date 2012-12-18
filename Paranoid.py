@@ -66,11 +66,13 @@ if __name__ == "__main__":
         if not camera.is_turned():
             capture = camera.turn_on()
 
-        #если человека нет перед камерой, лочим комьютер
-        print detector.detect_move()
-        if not detector.detect() or not detector.detect_move():
-            logging.warn("nothing was found in %f",detector.get_detect_time())
-
+        picture = camera.take_picture()
+        found = detector.detect(picture)
+        if not found or (found and not detector.detect_move()):
+            if not found:
+                logging.warn("nothing was found in %f",detector.get_detect_time())
+            else:
+                logging.warn("all objects are static")
             img_name = "img/before_block/"+str(time.time()).replace(".","")+".jpg";
             cv.SaveImage(img_name,detector.get_current_picture())
 
