@@ -20,7 +20,7 @@ class Detector():
     def __init__(self,camera):
         self._camera = camera
 
-    #TODO:эта функция требует рядя рефакторингв
+    #TODO:эта функция требует рядя рефакторингв: вынести все кейсы в отдельные классы и применить паттерн Chain of Responsability (http://www.python.org/workshops/1997-10/proceedings/savikko.html#SECTION00040000000000000000)
     def detect(self,picture):
         """производим последовательный поиск любого из элементов: глаз, лица, плеч и головы"""
         start_time = time.time()
@@ -79,7 +79,6 @@ class Detector():
         ub2 = cv.HaarDetectObjects(self._current_picture, cascade, self._camera.get_storage(), 1.2, 2, cv.CV_HAAR_DO_CANNY_PRUNING, (22,18))
 
         if ub2:
-            print 'haarcascade_upperbody found'
             self.set_modify_time(time.time())
             self._detection_time = time.time() - start_time
             self._what_was_detected = "haarcascade_upperbody"
