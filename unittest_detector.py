@@ -19,18 +19,33 @@ class testDetector(unittest.TestCase):
     def testDetectFace(self):
         detector = Detector(self.camera)
         self.assertTrue(detector.detect(cv.LoadImageM("tests/samples/good/swe.jpg")))
+        self.assertTrue(detector.detect(cv.LoadImageM("tests/samples/good/face_rec.jpg")))
+
+    def testDetectProfile(self):
+        detector = Detector(self.camera)
+        self.assertTrue(detector.detect(cv.LoadImageM("tests/samples/good/profile1.jpg")))
+
+    def testIgnoreChair(self):
+        detector = Detector(self.camera)
+        self.assertEquals(detector.detect(cv.LoadImageM("tests/samples/bad/chair.jpg")),False)
+
+    def testBowedHead(self):
+        detector = Detector(self.camera)
+        self.assertTrue(detector.detect(cv.LoadImageM("tests/samples/good/bowed_head.jpg")))
 
     def testNotDetect(self):
         detector = Detector(self.camera)
         self.assertEqual(detector.detect(cv.LoadImageM("tests/samples/bad/orange.jpeg")),False)
 
-    def testMontion(self):
+    def testDetect_Move(self):
         detector = Detector(self.camera)
         detector.detect(cv.LoadImageM("tests/samples/good/swe.jpg"))
         detector.detect(cv.LoadImageM("tests/samples/good/swe.jpg"))
         self.assertEqual(detector.detect_move(),False)
         detector.detect(cv.LoadImageM("tests/samples/good/gaga.jpeg"))
         self.assertTrue(detector.detect_move())
+
+
 
 if __name__ == '__main__':
 

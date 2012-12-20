@@ -60,7 +60,6 @@ class Detector():
             self._detection_time = time.time() - start_time
             self._prev_found_objs = list(self._curr_found_objs)
             self._curr_found_objs = hs
-            print "hs",self._prev_found_objs," --- ",self._curr_found_objs
             return True
             #cv.ShowImage("Camera", grayscale)
 
