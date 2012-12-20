@@ -23,6 +23,10 @@ if __name__ == "__main__":
         print "Error opening capture device"
         sys.exit(1)
         cv.NamedWindow("Camera",cv.CV_WINDOW_AUTOSIZE)
+
+    #флаг, чтоб не происходило блокировки сразу после включения камеры
+    bFirstTime = True
+
     while 1:
         #если ноут уже заблокирован - ничего не делаем
         if not os_helper.is_logged():
@@ -30,10 +34,16 @@ if __name__ == "__main__":
 
         #если ноут не заблокирован, но потока с камеры нет - создаем его
         if not camera.is_turned():
+            bFirstTime = True
             capture = camera.turn_on()
 
         picture = camera.take_picture()
         found = detector.detect(picture)
+
+        if bFirstTime:
+            bFirstTime = False
+            continue
+
         if not found or (found and not detector.detect_move()):
             if not found:
                 img_name = "img/before_block/"+str(time.time()).replace(".","")+".jpg";
