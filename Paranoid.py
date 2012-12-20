@@ -36,6 +36,7 @@ if __name__ == "__main__":
         found = detector.detect(picture)
         if not found or (found and not detector.detect_move()):
             if not found:
+                img_name = "img/before_block/"+str(time.time()).replace(".","")+".jpg";
                 cv.SaveImage(img_name,detector.get_current_picture())
                 logging.warn("nothing was found in %f",detector.get_detect_time())
             else:
