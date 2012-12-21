@@ -3,7 +3,7 @@ __author__ = 'voldemar'
 
 import unittest
 
-from detector import Detector
+from detector.detector import Detector,HaarDetector,HaarManager
 from camera import Camera
 import cv
 
@@ -24,7 +24,8 @@ class testDetector(unittest.TestCase):
 
     def testDetectProfile(self):
         """тест на поиск профиля"""
-        self.assertTrue(self.detector.detect(cv.LoadImageM("tests/samples/good/profile1.jpg")))
+        detector = HaarManager().get_detector('profile')
+        self.assertTrue(detector.detect(cv.LoadImageM("tests/samples/good/profile1.jpg")))
 
     def testIgnoreChair(self):
         """тест на игнорирование предметов похожих на человеческий силуэт"""
@@ -36,9 +37,11 @@ class testDetector(unittest.TestCase):
 
     def testHeadAndHand(self):
         """тестируем детектирование когда человек поднес руку к лицу"""
+
         self.assertTrue(self.detector.detect(cv.LoadImageM("tests/samples/good/head_and_hand1.jpg")))
         self.assertTrue(self.detector.detect(cv.LoadImageM("tests/samples/good/head_and_hand2.jpg")))
         self.assertTrue(self.detector.detect(cv.LoadImageM("tests/samples/good/head_and_hand3.jpg")))
+        self.assertTrue(self.detector.detect(cv.LoadImageM("tests/samples/good/head_and_hand4.jpg")))
 
     def testAtTheCorner(self):
         """в кадре только часть лица"""
@@ -56,6 +59,9 @@ class testDetector(unittest.TestCase):
         self.assertTrue(self.detector.detect_move())
 
 
+    def testHaarManager(self):
+        face_detector = HaarManager().get_detector('face');
+        self.assertTrue(isinstance(face_detector,HaarDetector))
 
 if __name__ == '__main__':
 

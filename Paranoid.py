@@ -2,7 +2,7 @@
 import sys
 import time
 from camera import Camera
-from detector import Detector
+from detector.detector import Detector
 import logging
 import cv
 
