@@ -17,7 +17,7 @@ class HaarDetector(object):
 
     def __init__(self,filename,camera_storage,minimal_size):
         self.__filename = filename
-        self.camera_storage = Camera().get_storage()
+        self.camera_storage = camera_storage
         self.minimal_size = minimal_size
 
     def detect(self,picture):

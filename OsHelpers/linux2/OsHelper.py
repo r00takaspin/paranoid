@@ -40,3 +40,7 @@ class OsHelper(BaseOsHelper) :
         if response == 'true':
             return False
         return True
+
+    def clear_img_folders(self):
+        os.system("rm -rf img/before_block/*.jpg")
+        os.system("rm -rf img/no_block/*.jpg")
